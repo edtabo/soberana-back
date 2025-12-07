@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto';
-import { PrismaService } from '../utils/prisma/prisma.service';
 import { IResponse, IUser } from './interfaces';
 import { UsersRepository } from './repository';
 import { localizations } from '../utils/localizations';
@@ -36,8 +35,7 @@ export class UsersService {
         success: true,
         data: item,
       };
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       throw new Error(localizations.errors.tryAgain);
     }
@@ -61,9 +59,7 @@ export class UsersService {
         success: true,
         data: items,
       };
-
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       throw new Error(localizations.errors.tryAgain);
     }
@@ -84,14 +80,13 @@ export class UsersService {
         last_name: data.last_name,
         email: data.email,
         role: data.role,
-        warehousesuser: data.warehousesuser
+        warehousesuser: data.warehousesuser,
       };
       return {
         success: true,
         data: item,
       };
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       throw new Error(localizations.errors.tryAgain);
     }
@@ -109,8 +104,7 @@ export class UsersService {
       return {
         success: true,
       };
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       throw new Error(localizations.errors.tryAgain);
     }
@@ -128,8 +122,7 @@ export class UsersService {
       return {
         success: data,
       };
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       throw new Error(localizations.errors.tryAgain);
     }

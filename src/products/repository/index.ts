@@ -1,21 +1,21 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../utils/prisma/prisma.service';
 import { logger } from '../../utils/log';
-import { IWarehouse } from '../interfaces';
+import { IProduct } from '../interfaces';
 
 @Injectable()
-export class WarehouseRepository {
+export class ProductRepository {
   @Inject(PrismaService)
   private readonly prisma: PrismaService;
 
-  async findAll(): Promise<IWarehouse[] | null> {
+  async findAll(): Promise<IProduct[] | null> {
     try {
-      const query = await this.prisma.warehouse.findMany({
+      const query = await this.prisma.product.findMany({
         select: {
           id: true,
           name: true,
           code: true,
-          status: true,
+          packaging_unit: true,
         },
       });
 

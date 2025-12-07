@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { localizations } from 'src/utils/localizations';
-import { WarehouseRepository } from './repository';
+import { ProductRepository } from './repository';
 import { logger } from 'src/utils/log';
 import { IResponse } from './interfaces';
+import { localizations } from 'src/utils/localizations';
 
 @Injectable()
-export class WarehouseService {
-  @Inject(WarehouseRepository)
-  private readonly query: WarehouseRepository;
+export class ProductsService {
+  @Inject(ProductRepository)
+  private readonly query: ProductRepository;
 
   async findAll(): Promise<IResponse> {
     try {

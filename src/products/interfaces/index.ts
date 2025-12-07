@@ -1,12 +1,12 @@
-export interface IWarehouse {
+export interface IProduct {
   id: number;
   name: string;
   code: string;
-  status: boolean;
+  packaging_unit: number;
 }
 
 export interface IResponse {
   success: boolean;
-  data?: IWarehouse[] | IWarehouse;
+  data?: IProduct[] | IProduct;
   message?: string;
 }

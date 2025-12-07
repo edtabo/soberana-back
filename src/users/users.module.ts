@@ -9,4 +9,4 @@ import { UsersRepository } from './repository';
   imports: [PrismaModule],
   providers: [UsersService, UsersRepository],
 })
-export class UsersModule { }
+export class UsersModule {}
