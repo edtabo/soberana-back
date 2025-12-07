@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  last_name  String
+  email     String @unique
+  password  String
+  role      Int @default(0)
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
+
+  warehousesuser UserWarehouse[]
+  // inventoryRecords InventoryRecord[]
+
+  @@map("users")
+}
+
+model Warehouse {
+  id        Int   @id @default(autoincrement())
+  name      String
+  code      String   @unique
+  status    Boolean @default(true)
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
+
+  //inventoryCounts InventoryCount[]
+  userWarehouses UserWarehouse[]
+
+  @@map("warehouses")
+}
+
+model UserWarehouse {
+  id            Int   @id @default(autoincrement())
+  user_id       Int
+  warehouse_id  Int
+  create_at     DateTime @default(now())
+  update_at     DateTime @updatedAt
+
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  warehouse     Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)  
+
+  @@map("user_warehouses")
+}
+
+
+
+// model InventoryCount {
+//   id          String   @id @default(uuid())
+//   warehouseId String
+//   cutoffDate  DateTime
+//   status      InventoryCountStatus @default(OPEN)
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+//   records     InventoryRecord[]
+
+//   @@map("inventory_counts")
+// }
+
+// model Product {
+//   id                  String   @id @default(uuid())
+//   name                String
+//   code                String   @unique
+//   packagingUnit       Int
+//   createdAt           DateTime @default(now())
+//   updatedAt           DateTime @updatedAt
+//   inventoryRecords    InventoryRecord[]
+
+//   @@map("products")
+// }
+
+// model InventoryRecord {
+//   id                      String   @id @default(uuid())
+//   inventoryCountId        String
+//   productId               String
+//   quantityInPackagingUnits Int
+//   quantityInUnits         Int
+//   createdAt               DateTime @default(now())
+//   updatedAt               DateTime @updatedAt
+//   inventoryCount          InventoryCount @relation(fields: [inventoryCountId], references: [id], onDelete: Cascade)
+//   product                 Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+//   createdBy               String
+//   user                    User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+
+//   @@unique([inventoryCountId, productId])
+//   @@map("inventory_records")
+// }
