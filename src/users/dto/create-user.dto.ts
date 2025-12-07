@@ -1,5 +1,11 @@
-import { IsArray, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { Transform } from "class-transformer";
+import {
+  IsArray,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { Roles } from 'src/utils/enums/commons';
 
 export class CreateUserDto {
@@ -26,9 +32,5 @@ export class CreateUserDto {
 
   @IsArray()
   @IsNumber({}, { each: true })
-  @Transform(({ value }) => {
-    if (value === null || value === undefined) return value;
-    return Array.isArray(value) ? value : [value];
-  })
-  warehouses?: number[];
+  warehouses: number[];
 }

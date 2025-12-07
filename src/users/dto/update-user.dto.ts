@@ -23,5 +23,4 @@ export class UpdateUserDto {
   @IsArray()
   @IsNumber({}, { each: true })
   warehouses: number[];
-
 }
