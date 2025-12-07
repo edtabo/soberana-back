@@ -1,8 +1,8 @@
 import { Injectable, Inject } from "@nestjs/common";
 
-import { PrismaService } from "src/utils/prisma/prisma.service";
-import { logger } from 'src/utils/log';
-import { IAuth } from 'src/auth/interfaces';
+import { PrismaService } from "../../utils/prisma/prisma.service";
+import { logger } from '../../utils/log';
+import { IAuth } from '../interfaces';
 
 @Injectable()
 export class AuthRepository {

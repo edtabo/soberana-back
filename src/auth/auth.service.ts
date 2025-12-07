@@ -1,9 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { AuthRepository } from './repository';
-import { logger } from 'src/utils/log';
-import { localizations } from 'src/utils/localizations';
-import { comparePassword, generateToken } from 'src/utils/utils';
+import { logger } from '../utils/log';
+import { localizations } from '../utils/localizations';
+import { comparePassword, generateToken } from '../utils/utils';
 
 @Injectable()
 export class AuthService {

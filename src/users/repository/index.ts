@@ -1,10 +1,10 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { PrismaService } from "src/utils/prisma/prisma.service";
+import { Inject, Injectable } from '@nestjs/common';
+import { PrismaService } from '../../utils/prisma/prisma.service';
 import { IUser } from '../interfaces';
-import { logger } from 'src/utils/log';
+import { logger } from '../../utils/log';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { setPassword } from 'src/utils/utils';
+import { setPassword } from '../../utils/utils';
 
 @Injectable()
 export class UsersRepository {
@@ -24,8 +24,7 @@ export class UsersRepository {
       });
 
       return query;
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       return null;
     }
@@ -51,8 +50,7 @@ export class UsersRepository {
         },
       });
       return query;
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       return null;
     }
@@ -66,8 +64,7 @@ export class UsersRepository {
         },
       });
       return query ? true : false;
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       return false;
     }
@@ -99,16 +96,18 @@ export class UsersRepository {
       });
 
       return query;
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       return null;
     }
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<IUser | null> {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<IUser | null> {
     try {
-      console.log(" 11111111 ");
+      console.log(' 11111111 ');
       const query = await this.prisma.$transaction(async (txn) => {
         let data;
         if (updateUserDto.password)
@@ -123,7 +122,7 @@ export class UsersRepository {
             last_name: updateUserDto.last_name,
           };
 
-        console.log(" 22222222 ");
+        console.log(' 22222222 ');
         const userQuery = await txn.user.update({
           where: {
             id,
@@ -133,7 +132,7 @@ export class UsersRepository {
 
         let warehouses;
 
-        console.log(" 33333333 ");
+        console.log(' 33333333 ');
         if (updateUserDto.warehouses && updateUserDto.warehouses.length > 0) {
           warehouses = await txn.userWarehouse.deleteMany({
             where: {
@@ -146,20 +145,19 @@ export class UsersRepository {
               warehouse_id: id,
             })),
           });
-          console.log(" 44444444 ");
+          console.log(' 44444444 ');
         }
 
-        console.log(" 55555555 ");
+        console.log(' 55555555 ');
         return warehouses;
       });
 
-      console.log(" +++++++++++++++++ ");
+      console.log(' +++++++++++++++++ ');
       console.log(query);
-      console.log(" +++++++++++++++++ ");
+      console.log(' +++++++++++++++++ ');
 
       return query;
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       return null;
     }
@@ -173,10 +171,9 @@ export class UsersRepository {
         },
       });
       return query ? true : false;
-    }
-    catch (error) {
+    } catch (error) {
       logger(error);
       return null;
     }
-  };
+  }
 }

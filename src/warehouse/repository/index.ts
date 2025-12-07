@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { PrismaService } from "src/utils/prisma/prisma.service";
-import { logger } from 'src/utils/log';
+import { PrismaService } from "../../utils/prisma/prisma.service";
+import { logger } from '../../utils/log';
 import { IWarehouse } from '../interfaces';
 
 @Injectable()

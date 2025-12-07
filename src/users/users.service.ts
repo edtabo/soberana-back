@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto';
-import { PrismaService } from 'src/utils/prisma/prisma.service';
+import { PrismaService } from '../utils/prisma/prisma.service';
 import { IResponse, IUser } from './interfaces';
 import { UsersRepository } from './repository';
-import { localizations } from 'src/utils/localizations';
-import { logger } from 'src/utils/log';
+import { localizations } from '../utils/localizations';
+import { logger } from '../utils/log';
 
 @Injectable()
 export class UsersService {
