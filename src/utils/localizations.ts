@@ -8,6 +8,5 @@ export const localizations = {
     notAuthorized: 'No tienes autorizacion para realizar esta accion',
     emailExist: 'El correo electronico ya se encuentra registrado',
     notMatch: 'Contraseña incorrecta',
-
-  }
+  },
 };

@@ -22,7 +22,7 @@ model User {
   update_at DateTime @updatedAt
 
   warehousesuser UserWarehouse[]
-  // inventoryRecords InventoryRecord[]
+  inventoryRecords InventoryRecord[]
 
   @@map("users")
 }
@@ -35,7 +35,7 @@ model Warehouse {
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
 
-  //inventoryCounts InventoryCount[]
+  inventoryCounts InventoryCount[]
   userWarehouses UserWarehouse[]
 
   @@map("warehouses")
@@ -49,7 +49,7 @@ model UserWarehouse {
   update_at     DateTime @updatedAt
 
   user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  warehouse     Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)  
+  warehouse     Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade) 
 
   @@map("user_warehouses")
 }
@@ -60,40 +60,39 @@ model Product {
   packaging_unit      Int
   create_at           DateTime @default(now())
   update_at           DateTime @updatedAt
-  // inventoryRecords    InventoryRecord[]
+
+  inventoryRecords    InventoryRecord[]
 
   @@map("products")
 }
 
-// model InventoryCount {
-//   id            Int   @id @default(autoincrement())
-//   warehouse_id  String
-
-//   cutoff_date   DateTime
-//   create_at     DateTime @default(now())
-//   update_at     DateTime @updatedAt
-
-//   // status      InventoryCountStatus @default(OPEN)
-//   // warehouse   Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
-//   // records     InventoryRecord[]
-
-//   @@map("inventory_counts")
-// }
 
 
-// model InventoryRecord {
-//   id                      String   @id @default(uuid())
-//   inventoryCountId        String
-//   productId               String
-//   quantityInPackagingUnits Int
-//   quantityInUnits         Int
-//   createdAt               DateTime @default(now())
-//   updatedAt               DateTime @updatedAt
-//   inventoryCount          InventoryCount @relation(fields: [inventoryCountId], references: [id], onDelete: Cascade)
-//   product                 Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-//   createdBy               String
-//   user                    User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+model InventoryCount {
+  id            Int   @id @default(autoincrement())
+  warehouse_id  Int
+  cutoff_date   DateTime
+  create_at     DateTime @default(now())
+  update_at     DateTime @updatedAt
+  warehouse   Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
+  records     InventoryRecord[]
+  @@map("inventory_counts")
+}
 
-//   @@unique([inventoryCountId, productId])
-//   @@map("inventory_records")
-// }
+
+model InventoryRecord {
+  id                          Int @id @default(autoincrement())
+  inventory_count_id          Int
+  product_id                  Int
+  user_id                     Int
+  quantity_in_packaging_units Int
+  quantity_in_units           Int
+  create_at                   DateTime @default(now())
+  update_at                   DateTime @updatedAt
+
+  inventoryCount          InventoryCount @relation(fields: [inventory_count_id], references: [id], onDelete: Cascade)
+  product                 Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  user                    User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("inventory_records")
+}

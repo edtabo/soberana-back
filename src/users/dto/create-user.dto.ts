@@ -6,7 +6,7 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-import { Roles } from '../../utils/enums/commons';
+import { Roles } from 'src/utils/enums/commons';
 
 export class CreateUserDto {
   @IsString()

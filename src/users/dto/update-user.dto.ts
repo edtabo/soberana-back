@@ -1,5 +1,12 @@
-import { IsString, IsNotEmpty, IsNumber, IsEnum, IsArray, IsOptional } from "class-validator";
-import { Roles } from '../../utils/enums/commons';
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  IsEnum,
+  IsArray,
+  IsOptional,
+} from 'class-validator';
+import { Roles } from 'src/utils/enums/commons';
 
 export class UpdateUserDto {
   @IsString()
