@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { Inject } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto } from './dto';
-import { PrismaService } from 'src/utils/prisma/prisma.service';
+import { PrismaService } from '../utils/prisma/prisma.service';
 
 @Controller('users')
 export class UsersController {

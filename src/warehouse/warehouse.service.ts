@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { WarehouseRepository } from './repository';
-import { localizations } from 'src/utils/localizations';
+import { localizations } from '../utils/localizations';
 import { IResponse } from './interfaces';
 
 @Injectable()
