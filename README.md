@@ -32,7 +32,7 @@ Backend desarrollado con NestJS para la gestión de bodegas y usuarios.
 3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
    ```env
    # Puerto de la aplicación
-   PORT=3000
+   PORT=3005
    
    # Configuración de la base de datos PostgreSQL
    DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/nombre_basedatos?schema=public"
