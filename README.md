@@ -1,53 +1,103 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🏗️ Soberana Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Descripción
 
-## Description
+Backend desarrollado con NestJS para la gestión de bodegas y usuarios.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Requisitos Previos
 
-## Project setup
+- Node.js (v16 o superior)
+- npm o yarn
+- PostgreSQL (v12 o superior)
+- Git
 
+## ⚙️ Configuración del Entorno
+
+1. Clona el repositorio:
+   ```bash
+   git clone [URL_DEL_REPOSITORIO]
+   cd back
+   ```
+
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
+   ```env
+   # Puerto de la aplicación
+   PORT=3000
+   
+   # Configuración de la base de datos PostgreSQL
+   DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/nombre_basedatos?schema=public"
+   
+   # Configuración de JWT (opcional, para autenticación)
+   JWT_SECRET=tu_clave_secreta_jwt
+   JWT_EXPIRES_IN=1d
+   ```
+
+## 🛠️ Comandos Útiles
+
+### Desarrollo
 ```bash
-$ npm install
+# Iniciar en modo desarrollo (con hot-reload)
+npm run start:dev
+
+# Iniciar en modo producción
+npm run start:prod
+
+# Generar cliente de Prisma
+npx prisma generate
+
+# Aplicar migraciones
+npx prisma migrate dev
+
+# Abrir el cliente de Prisma Studio
+npx prisma studio
 ```
 
-## Compile and run the project
-
+### Pruebas
 ```bash
-# development
-$ npm run start
+# Ejecutar pruebas unitarias
+npm run test
 
-# watch mode
-$ npm run start:dev
+# Ejecutar pruebas e2e
+npm run test:e2e
 
-# production mode
-$ npm run start:prod
+# Ejecutar pruebas con cobertura
+npm run test:cov
 ```
 
-## Run tests
+## 🗄️ Estructura del Proyecto
 
-```bash
-# unit tests
+```
+src/
+├── auth/           # Módulo de autenticación
+├── products/       # Módulo de productos
+├── inventory/      # Módulo de inventario
+├── users/          # Módulo de usuarios
+├── warehouses/     # Módulo de bodegas
+└── main.ts         # Punto de entrada de la aplicación
+```
+
+## 🔒 Variables de Entorno
+
+| Variable       | Descripción                                  | Valor por defecto |
+|----------------|----------------------------------------------|-------------------|
+| `PORT`         | Puerto en el que se ejecuta la aplicación    | `3000`            |
+| `DATABASE_URL` | URL de conexión a la base de datos PostgreSQL | -                |
+| `JWT_SECRET`   | Clave secreta para JWT                       | -                |
+| `JWT_EXPIRES_IN`| Tiempo de expiración del token JWT          | `1d`             |
+
+## 📄 Licencia
+
+Este proyecto está bajo la [Licencia MIT](LICENSE).
 $ npm run test
 
 # e2e tests
