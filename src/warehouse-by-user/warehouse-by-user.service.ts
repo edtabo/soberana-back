@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CommonStrings } from 'src/utils/enums/commons';
+import { CommonStrings } from '../utils/enums/commons';
 import { WarehouseByUserRepository } from './repository';
-import { localizations } from 'src/utils/localizations';
-import { logger } from 'src/utils/log';
+import { localizations } from '../utils/localizations';
+import { logger } from '../utils/log';
 import { IResponse } from './interfaces';
 
 @Injectable()
