@@ -24,13 +24,14 @@ export class AuthGuard implements CanActivate {
     const req = context.switchToHttp().getRequest<Request>();
     const { url, method } = req;
 
+console.log(" 000000 ");
     const cleanUrl = url.split('?')[0];
     const isExcluded = this.excludedRoutes.some(
       (route) =>
         cleanUrl.startsWith(route.path) &&
         method.toLowerCase() === route.method.toLowerCase(),
     );
-
+    
     if (isExcluded) return true;
 
     const authorization = req.headers['authorization'];

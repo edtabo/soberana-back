@@ -17,7 +17,6 @@ export interface IWarehouseByUserResponse {
   id: number;
   name: string;
   code: string;
-  maxCount: number;
   canCountToday: boolean;
   nextCountNumber: number;
 }

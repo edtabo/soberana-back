@@ -28,7 +28,6 @@ export class WarehouseByUserService {
             id: item.warehouse_id,            
             name: item.warehouse.name,
             code: item.warehouse.code,
-            maxCount: countInfo?.left || 0,
             canCountToday: countInfo?.canCountToday || false,
             nextCountNumber: countInfo?.nextCountNumber || 1
           }

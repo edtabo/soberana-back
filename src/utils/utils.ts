@@ -13,7 +13,7 @@ export const comparePassword = async (password: string, hash: string): Promise<b
 
 export const generateToken = async ({ id, name, last_name, role }: { id: number, name: string, last_name: string, role: number; }): Promise<string> => {
   const token = jwt.sign({ id, name, last_name, role }, process.env.JWT_SECRET!!, {
-    expiresIn: '2h',
+    expiresIn: '4h',
   });
   return token;
 };

@@ -10,19 +10,42 @@ export class InventoryRepository {
 
 async create(createInventoryDto: CreateInventoryDto, userId: number): Promise<boolean> {
   try {
-    const data = createInventoryDto.products.map(product => ({
+    
+    const today = new Date();
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    const latestRecord = await this.prisma.inventoryRecord.findFirst({
+      where: {
+        user_warehouse_id: userId,
+        warehouse_id: createInventoryDto.warehouse_id,
+        create_at: {
+          gte: firstDayOfMonth
+        }
+      },
+      orderBy: {
+        counter: 'desc'
+      },
+      select: {
+        counter: true
+      }
+    });
+
+    const nextCounter = latestRecord ? latestRecord.counter + 1 : 1;
+
+
+    const data = createInventoryDto.products.map((product, index) => ({
       product_id: product.product_id,
       warehouse_id: createInventoryDto.warehouse_id,
       user_warehouse_id: userId,
       quantity_in_packaging_units: product.quantity_in_packaging_units,
       quantity_in_units: product.quantity_in_units,
-    }))
-
+      counter: nextCounter
+    }));
 
     await Promise.all(
       data.map(item => 
         this.prisma.inventoryRecord.create({
-          data:item
+          data: item
         })
       )
     );
