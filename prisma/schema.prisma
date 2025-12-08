@@ -56,6 +56,8 @@ model Product {
   create_at      DateTime @default(now())
   update_at      DateTime @updatedAt
 
+   inventoryRecords InventoryRecord[]
+
   @@map("products")
 }
 
@@ -71,6 +73,8 @@ model InventoryRecord {
   update_at                   DateTime      @updatedAt
   userWarehouse               UserWarehouse @relation(fields: [user_warehouse_id], references: [id], onDelete: Cascade)
   warehouse                   Warehouse     @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
+  product                     Product       @relation(fields: [product_id], references: [id], onDelete: Cascade)  // Add this line
+
 
   @@map("inventory_records")
 }

@@ -29,10 +29,13 @@ export class InventoryService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<IResponse> {
     try {
       const data = await this.query.findAll();
-      return `This action returns all inventory`;
+      return {
+        success: true,
+        data: data ?data : [],
+      };
     } catch (error) {
       logger(error);
       throw error;
