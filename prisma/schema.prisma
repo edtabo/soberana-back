@@ -1,9 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
   previewFeatures = ["multiSchema"]
 }
 
@@ -12,77 +9,68 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  last_name  String
-  email     String @unique
-  password  String
-  role      Int @default(0)
-  create_at DateTime @default(now())
-  update_at DateTime @updatedAt
-
+  id             Int             @id @default(autoincrement())
+  email          String          @unique
+  password       String
+  create_at      DateTime        @default(now())
+  last_name      String
+  name           String
+  role           Int             @default(0)
+  update_at      DateTime        @updatedAt
   warehousesuser UserWarehouse[]
 
   @@map("users")
 }
 
 model Warehouse {
-  id        Int   @id @default(autoincrement())
-  name      String
-  code      String   @unique
-  status    Boolean @default(true)
-  create_at DateTime @default(now())
-  update_at DateTime @updatedAt
-
-  records     InventoryRecord[]
-
-  // inventoryCounts InventoryCount[]
+  id             Int               @id @default(autoincrement())
+  name           String
+  code           String            @unique
+  status         Boolean           @default(true)
+  create_at      DateTime          @default(now())
+  update_at      DateTime          @updatedAt
+  records        InventoryRecord[]
   userWarehouses UserWarehouse[]
 
   @@map("warehouses")
 }
 
 model UserWarehouse {
-  id            Int   @id @default(autoincrement())
-  user_id       Int
-  warehouse_id  Int
-  create_at     DateTime @default(now())
-  update_at     DateTime @updatedAt
-
-  records     InventoryRecord[]
-
-  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  warehouse     Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade) 
+  id           Int               @id @default(autoincrement())
+  user_id      Int
+  warehouse_id Int
+  create_at    DateTime          @default(now())
+  update_at    DateTime          @updatedAt
+  records      InventoryRecord[]
+  user         User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  warehouse    Warehouse         @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
 
   @@map("user_warehouses")
 }
-model Product {
-  id                  Int   @id @default(autoincrement())
-  name                String
-  code                String   @unique
-  packaging_unit      Int
-  create_at           DateTime @default(now())
-  update_at           DateTime @updatedAt
 
-  inventoryRecords    InventoryRecord[]
+model Product {
+  id             Int      @id @default(autoincrement())
+  name           String
+  code           String   @unique
+  packaging_unit Int
+  create_at      DateTime @default(now())
+  update_at      DateTime @updatedAt
 
   @@map("products")
 }
 
 model InventoryRecord {
-  id                          Int @id @default(autoincrement())
+  id                          Int           @id @default(autoincrement())
   product_id                  Int
   user_warehouse_id           Int
   warehouse_id                Int
-  counter                     Int @default(0)
+  counter                     Int
   quantity_in_packaging_units Int
   quantity_in_units           Int
-  create_at                   DateTime @default(now())
-  update_at                   DateTime @updatedAt
-
-  product                 Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
-  warehouse               Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
-  userWarehouse           UserWarehouse @relation(fields: [user_warehouse_id], references: [id], onDelete: Cascade)
+  create_at                   DateTime      @default(now())
+  update_at                   DateTime      @updatedAt
+  userWarehouse               UserWarehouse @relation(fields: [user_warehouse_id], references: [id], onDelete: Cascade)
+  warehouse                   Warehouse     @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
 
   @@map("inventory_records")
 }
