@@ -6,19 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { CreateInventoryDto } from './dto/create-inventory.dto';
-import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Controller('inventory')
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
-  // @Post()
-  // create(@Body() createInventoryDto: CreateInventoryDto) {
-  //   return this.inventoryService.create(createInventoryDto);
-  // }
+  @Post()
+  create(@Body() createInventoryDto: CreateInventoryDto, @Req() req: Request) {
+    return this.inventoryService.create(createInventoryDto, req);
+  }
 
   @Get()
   findAll() {

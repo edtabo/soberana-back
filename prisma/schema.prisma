@@ -22,7 +22,6 @@ model User {
   update_at DateTime @updatedAt
 
   warehousesuser UserWarehouse[]
-  inventoryRecords InventoryRecord[]
 
   @@map("users")
 }
@@ -35,7 +34,9 @@ model Warehouse {
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
 
-  inventoryCounts InventoryCount[]
+  records     InventoryRecord[]
+
+  // inventoryCounts InventoryCount[]
   userWarehouses UserWarehouse[]
 
   @@map("warehouses")
@@ -47,6 +48,8 @@ model UserWarehouse {
   warehouse_id  Int
   create_at     DateTime @default(now())
   update_at     DateTime @updatedAt
+
+  records     InventoryRecord[]
 
   user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   warehouse     Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade) 
@@ -66,33 +69,19 @@ model Product {
   @@map("products")
 }
 
-
-
-model InventoryCount {
-  id            Int   @id @default(autoincrement())
-  warehouse_id  Int
-  cutoff_date   DateTime
-  create_at     DateTime @default(now())
-  update_at     DateTime @updatedAt
-  warehouse   Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
-  records     InventoryRecord[]
-  @@map("inventory_counts")
-}
-
-
 model InventoryRecord {
   id                          Int @id @default(autoincrement())
-  inventory_count_id          Int
   product_id                  Int
-  user_id                     Int
+  user_warehouse_id           Int
+  warehouse_id                Int
   quantity_in_packaging_units Int
   quantity_in_units           Int
   create_at                   DateTime @default(now())
   update_at                   DateTime @updatedAt
 
-  inventoryCount          InventoryCount @relation(fields: [inventory_count_id], references: [id], onDelete: Cascade)
   product                 Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
-  user                    User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  warehouse               Warehouse @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
+  userWarehouse           UserWarehouse @relation(fields: [user_warehouse_id], references: [id], onDelete: Cascade)
 
   @@map("inventory_records")
 }

@@ -1,8 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CreateInventoryDto } from './dto/create-inventory.dto';
-import { UpdateInventoryDto } from './dto/update-inventory.dto';
 import { logger } from 'src/utils/log';
+import { IResponse } from './interfaces';
 import { InventoryRepository } from './repository';
+import { CommonStrings } from 'src/utils/enums/commons';
+import { localizations } from '../utils/localizations';
 
 @Injectable()
 export class InventoryService {
@@ -10,9 +12,22 @@ export class InventoryService {
   @Inject(InventoryRepository)
   private readonly query: InventoryRepository;
 
-  // create(createInventoryDto: CreateInventoryDto) {
-  //   return 'This action adds a new inventory';
-  // }
+  async create(createInventoryDto: CreateInventoryDto, req: Request): Promise<IResponse> {
+    try {
+      const userId = req[CommonStrings.USER_PROPERTY]?.id as number;
+      const data = await this.query.create(createInventoryDto, userId);
+
+      if (!data) throw new Error(localizations.errors.tryAgain);
+
+      return {
+        success: true,
+      };
+
+    } catch (error) {
+      logger(error);
+      throw error;
+    }
+  }
 
   async findAll() {
     try {
