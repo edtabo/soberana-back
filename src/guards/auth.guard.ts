@@ -17,14 +17,12 @@ export class AuthGuard implements CanActivate {
 
   private excludedRoutes = [
     { path: '/api/auth', method: 'post' },
-    { path: '/api/users', method: 'post' },
   ];
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest<Request>();
     const { url, method } = req;
 
-console.log(" 000000 ");
     const cleanUrl = url.split('?')[0];
     const isExcluded = this.excludedRoutes.some(
       (route) =>
