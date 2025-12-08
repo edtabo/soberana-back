@@ -74,6 +74,7 @@ model InventoryRecord {
   product_id                  Int
   user_warehouse_id           Int
   warehouse_id                Int
+  counter                     Int @default(0)
   quantity_in_packaging_units Int
   quantity_in_units           Int
   create_at                   DateTime @default(now())
